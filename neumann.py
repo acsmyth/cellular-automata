@@ -24,6 +24,7 @@ rng = 1
 num_neighbors = (rng+1) ** 2 + rng ** 2 - 1
 rule = ran_bin_str(2 ** num_neighbors)
 
+print(num_neighbors)
 #print('Rule:')
 #print(rule)
 
@@ -49,7 +50,7 @@ def get_neighbors(r, c, rng):
 
 w, h = 700, 700
 pygame.init()
-pygame.display.set_caption('Pong')
+pygame.display.set_caption('Automata')
 screen = pygame.display.set_mode([w, h])
 
 
