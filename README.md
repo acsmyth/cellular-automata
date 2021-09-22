@@ -1,6 +1,6 @@
 # Cellular Automata
 
-Cellular automata simulator.
+Cellular automata simulation.
 
 ## How to Run
 
