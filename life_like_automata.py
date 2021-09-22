@@ -8,19 +8,6 @@ rows, cols = 300, 300
 
 grid = [['X' if random.random() < 0.5 else '-' for q in range(cols)] for q in range(rows)]
 
-'''
-grid = [['O' for q in range(cols)] for q in range(rows)]
-grid[rows//2][cols//2-2] = 'X'
-grid[rows//2][cols//2+2] = 'X'
-grid[rows//2-2][cols//2] = 'X'
-
-dist = 20
-for q in range(dist):
-    for z in range(dist):
-        if random.random() < 0.3:
-            grid[rows//2 + q - dist//2][cols//2 + z - dist//2] = 'X'
-'''
-
 def int_to_bin_str(n, ln=0):
     ret = '{0:b}'.format(n)
     ret = ret.replace('1', 'X').replace('0', '-')
@@ -35,10 +22,7 @@ def ran_bin_str(ln):
         ret += 'X' if random.random() < 0.5 else '-'
     return ret
 
-#rule = ran_bin_str(2 ** 8)
 rule = 'B4678/S35678'
-
-cool_rules = ['B4678/S35678', 'B1357/S1357']
 
 birth_rule = [int(e) for e in list(rule[1:rule.index('/')])]
 survival_rule  = [int(e) for e in list(rule[rule.index('/')+2:])]
@@ -77,26 +61,9 @@ def display_grid(grid):
                 col = (0,0,0)
                 pygame.draw.rect(screen, col, (c * cellW, r * cellH, cellW+1, cellH+1))
 
-#perms_dict = {}
-#perms = gen_possible_rules(num_neighbors)
-#for i in range(len(perms)):
-#    perms_dict[perms[i]] = i
-
-
-#cool_rules = ['XX-X--XXXX---XX-', '-X--X-X-X--XX-X-', 'X---X---X-X-XX-X', 'X-----XX--X----X', 'XXXXX----X-XXXX-',
-#              '--XX-XXX------XX', '--X-XXXXX--XXX-X', 'XXXXXXXX-XX-----']
-#rule = cool_rules[0]
-#ticks_per_rule = 20
-#print('Rule: ' + rule)
-
 display_grid(grid)
 gens = 999999999999
 for q in range(gens):
-    #if q % ticks_per_rule == ticks_per_rule-1:
-        #rule = ran_bin_str(2 ** num_neighbors)
-        #rule = cool_rules[cool_rules.index(rule)+1]
-        #print('Rule: ' + rule)
-    #print(grid)
     new_grid = [[0 for z in range(cols)] for z in range(rows)]
     for r in range(rows):
         for c in range(cols):
@@ -122,7 +89,6 @@ for q in range(gens):
 
     display_grid(grid)
     pygame.display.flip()
-    #time.sleep(0.25)
 
 pygame.quit()
 

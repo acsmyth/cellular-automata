@@ -24,10 +24,6 @@ rng = 1
 num_neighbors = (rng+1) ** 2 + rng ** 2 - 1
 rule = ran_bin_str(2 ** num_neighbors)
 
-print(num_neighbors)
-#print('Rule:')
-#print(rule)
-
 def gen_possible_rules(n):
     max_digits = len(int_to_bin_str(2**n - 1))
     ret = []
@@ -47,6 +43,8 @@ def get_neighbors(r, c, rng):
         row_n += 1
     return ret
 
+def random_grid(per):
+    return [['X' if random.random() < per else '-' for c in range(cols)] for r in range(rows)]
 
 w, h = 700, 700
 pygame.init()
@@ -68,20 +66,22 @@ for i in range(len(perms)):
     perms_dict[perms[i]] = i
 
 
-cool_rules = ['XX-X--XXXX---XX-', '-X--X-X-X--XX-X-', 'X---X---X-X-XX-X', 'X-----XX--X----X', 'XXXXX----X-XXXX-',
-              '--XX-XXX------XX', '--X-XXXXX--XXX-X', 'XXXXXXXX-XX-----']
+cool_rules = ['XXXXXX-XX--X----', 'XX-X--XXXX---XX-', '-X--X-X-X--XX-X-', 'X---X---X-X-XX-X', 'X-----XX--X----X', 'XXXXX----X-XXXX-',
+              '--X-XXXXX--XXX-X', 'XXXXXXXX-XX-----', '--X-XXX-----XX--', 'XXX-X---X---XXX-']
 rule = cool_rules[0]
-ticks_per_rule = 20
+ticks_per_rule = 40
 print('Rule: ' + rule)
 
+grid = random_grid(0.30)
 display_grid(grid)
 gens = 999999999999
 for q in range(gens):
     if q % ticks_per_rule == ticks_per_rule-1:
-        #rule = ran_bin_str(2 ** num_neighbors)
+        if cool_rules.index(rule)+1  >= len(cool_rules):
+            cool_rules.append(ran_bin_str(2 ** num_neighbors))
+            grid = random_grid(0.5)
         rule = cool_rules[cool_rules.index(rule)+1]
         print('Rule: ' + rule)
-    #print(grid)
     new_grid = [[0 for z in range(cols)] for z in range(rows)]
     for r in range(rows):
         for c in range(cols):
@@ -93,7 +93,6 @@ for q in range(gens):
             idx = perms_dict[on_off_bin_str]
             new_grid[r][c] = rule[idx]
     grid = new_grid
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
