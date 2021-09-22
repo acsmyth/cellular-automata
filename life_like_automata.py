@@ -3,6 +3,7 @@ from os import environ
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 import pygame
 import time
+import sys
 
 rows, cols = 300, 300
 
@@ -84,8 +85,9 @@ for q in range(gens):
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            pygame.display.quit()
             pygame.quit()
-            break
+            sys.exit()
 
     display_grid(grid)
     pygame.display.flip()

@@ -3,6 +3,7 @@ from os import environ
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 import pygame
 import time
+import sys
 
 rows, cols = 100, 100
 grid = [['X' if random.random() < 0.05 else '-' for q in range(cols)] for q in range(rows)]
@@ -95,8 +96,9 @@ for q in range(gens):
     grid = new_grid
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            pygame.display.quit()
             pygame.quit()
-            break
+            sys.exit()
 
     display_grid(grid)
     pygame.display.flip()
